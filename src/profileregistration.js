@@ -94,6 +94,7 @@ const ProfileRegistration = ({ setProfile }) => {
     }
 
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
     // Password
     if (name === "password" || name === null) {
       if (data.password === "")
@@ -101,10 +102,14 @@ const ProfileRegistration = ({ setProfile }) => {
       else if (data.password.length < 8) {
         errors.password = 'Password must be at least 8 characters long.';
       }
+      else if (!data.password.match(passwordRegex)) {
+        errors.password = 'Password must contain 1 Uppercase, 1 Lowercase and 1 symbol.';
+      }
       else {
         errors.password = '';
       }
     }
+
 
     // Confirm Password
     if (name === "confirmPassword" || name === null) {
